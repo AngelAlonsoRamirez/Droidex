@@ -1,1 +1,1 @@
-var actual = "2.66"
+var actual = "1.1"
