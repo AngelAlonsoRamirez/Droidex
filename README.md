@@ -1,6 +1,7 @@
 # Droidex
 <h2>Descargar</h2>
 <a href="https://github.com/AngelAlonsoRamirez/Droidex/releases">Pulsa aquí para descargar la app.</a>
+<br>
 <h2>Aviso de la Aplicación Droidex</h2>
 <p>Esta aplicación, Droidex, es una creación de fanáticos de Pokémon y no es una aplicación oficial de Pokémon, Game Freak, Nintendo o The Pokémon Company. Esta app ha sido desarrollada por entusiastas de la comunidad Pokémon con el objetivo de proporcionar información y entretenimiento a otros fans.</p>
 <br>
