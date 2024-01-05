@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./estilo.css">
+  <script>var actual=""</script>
+    <script src="https://angelalonsoramirez.github.io/Droidex/version.js"></script>
+    <script src="ds:/Sys/app.js"></script>
+</head>
+
+<script>
+function inicio() {
+    location.href = "index.html";
+    }
+
+function codigo() {
+    var codigo = document.getElementById('codigo').value;
+    
+    if (codigo==='15241') {//Mew
+    
+        app.ShowPopup("Has obtenido un Mew.");
+        location.href = "ver.html#151";
+        }
+        
+        else {app.ShowPopup("Codigo no valido.");}
+    }
+</script>
+
+<body>
+  <div class="contenedor">
+    <div class="interfaz">
+      <div class="interfaz-arriba">
+        <div class="contenedor-luz">
+          <div class="luz luz--azul"></div>
+        </div>
+        <div class="luz luz--rojo"></div>
+        <div class="luz luz--amarillo"></div>
+        <div class="luz luz--verde"></div>
+      </div>
+      <div class="interfaz-pantalla">
+        <div class="pantalla">
+          <div class="interfaz-luces"></div>
+          <div class="contenedor-pantalla">
+            <div id="pantalla"></div>
+            
+            <center>
+            <br>
+            <h2>Introduce el codigo</h2>
+            <br><br><br>
+            <input type="number" id="codigo">
+            <br><br>
+            <div class="boton">
+                <button type="button" class="btnv" onclick="codigo()">ACTIVAR</button>
+            </div>
+            
+            </center>
+            
+          </div>
+        </div>
+      </div>
+<div class="boton">
+  <button type="button" class="btn" id="capturar" onclick="inicio()">INICIO</button>
+</div>
+    </div>
+  </div>
+</body>
+</html>
