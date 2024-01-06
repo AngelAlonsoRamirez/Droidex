@@ -1,2 +1,0 @@
-# App Droidex
-<p>Para poder probar el codigo, comprimalo en formato spk y abralo con la herramienta <a href="https://play.google.com/store/apps/details?id=com.smartphoneremote.androidscriptfree">DroidScript</a>, app de Android.</p>
