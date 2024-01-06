@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./estilo.css">
+
+  <script src="ds:/Sys/app.js"></script>
+  <script>
+    app.LoadPlugin("BarcodeReader");
+
+    function inicio() {
+      qrlay = app.CreateLayout("Absolute");
+
+      reader = app.CreateObject("BarcodeReader");
+
+      cam = app.CreateCameraView(0.6, 0.3, "UseYUV");
+      cam.SetMargins(0.4, 0.3, 0.4, 0.9);
+      cam.SetPosition(0.20, 0.40, 0);
+
+      var zoomLevel = 2.0;
+      cam.SetZoom(zoomLevel);
+      cam.SetOnReady(cam_OnReady);
+      qrlay.AddChild(cam);
+
+      app.AddLayout(qrlay);
+    }
+
+    function cam_OnReady() {
+      cam.StartPreview();
+      cam.SetFocusMode("macro");
+      DecodeFromCamera();
+    }
+
+    function UpdateDatabaseAsync(id) {
+      var dir = app.GetDatabaseFolder();
+      var db = app.OpenDatabase(dir + "/Droidex");
+
+      setTimeout(function () {
+        var updateQuery = "UPDATE Pokedex SET Ball = 'cherish.png' WHERE PokemonID = ?";
+        db.ExecuteSql(updateQuery, [id]);
+        db.Close();
+      }, 0);
+    }
+
+function DecodeFromCamera() {
+  var result = reader.Decode(cam);
+
+  if (result != null) {
+    var qr = result.content;
+    var cantidadqr = qr.length;
+
+    app.RemoveLayout(qrlay);
+
+    if (qr === "https://github.com/AngelAlonsoRamirez/Droidex") {
+      UpdateDatabaseAsync('144');
+      location.href = "ver.html#144";
+    } else {
+      if (cantidadqr == "151") {  // Saltar numero
+        location.href = "ver.html#150";
+      } else if (cantidadqr < "152") {
+        location.href = "ver.html#" + cantidadqr;
+      } else {
+        var dia = new Date();
+        var hora = dia.getHours();
+        location.href = "ver.html#" + hora;
+      }
+    }
+  }
+
+
+      setTimeout(DecodeFromCamera, 200);
+    }
+
+    function volver() {
+      app.RemoveLayout(qrlay);
+      location.href = "index.html";
+    }
+
+    function estado() {
+      var interruptor = document.getElementById("interruptor");
+
+      if (interruptor.checked) {
+        cam.SetFlash(true);
+      } else {
+        cam.SetFlash(false);
+      }
+    }
+
+    function updateOutput() {
+      var rango = document.getElementById('zoom');
+
+      cam.SetZoom(parseFloat(rango.value));
+    }
+  </script>
+</head>
+
+<body onload="inicio()">
+  <div class="contenedor">
+    <div class="interfaz">
+      <div class="interfaz-arriba">
+        <div class="contenedor-luz">
+          <div class="luz luz--azul"></div>
+        </div>
+        <div class="luz luz--rojo"></div>
+        <div class="luz luz--amarillo"></div>
+        <div class="luz luz--verde"></div>
+      </div>
+      <div class="interfaz-pantalla">
+        <div class="pantalla">
+          <div class="interfaz-luces"></div>
+          <div class="contenedor-pantalla">
+            <div id="resultado"><p id="enfoque">Recuerda enfocar bien la cámara</p></div>
+          </div>
+
+          <div class="switch-caja">
+            <label class="switch">
+              <input type="checkbox" id="interruptor" onclick="estado()">
+              <span class="switch-cambio"></span>
+            </label>
+          </div>
+
+          <input type="range" name="rad" id="zoom" min="0" max="100" value="0" oninput="updateOutput()">
+          <output id="vrad"></output>
+        </div>
+      </div>
+      <div class="boton">
+        <button type="button" class="btn" onclick="volver();">VOLVER</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
