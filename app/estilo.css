@@ -227,22 +227,26 @@ table {
   font-size: 15px;
 }
   
-div.boton-pokemon {
+.boton-pokemon {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
-  padding: 10px;
+  padding: 10px; /* Ajusta el relleno según tus preferencias */
 }
-    
-div.boton-pokemon p {
-  margin: 0;
+
+.info-container {
+  display: flex;
+  align-items: center;
+}
+
+.pokemon-name {
   margin-right: 5px;
 }
-    
-div.boton-pokemon img {
-  margin-right: 5px;
+
+.pokemon-id {
+  margin-left: auto; /* Coloca pokemon-id a la derecha */
 }
+
 
 
 .boton {
@@ -312,7 +316,9 @@ div.boton-pokemon img {
 }
 
 #imagen {
-  width: 120px;
+    background-color: white;
+    border-radius: 15px;
+    width: 150px;
 }
 
 #Descripcion {

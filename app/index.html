@@ -29,6 +29,7 @@
             var id = '25';
             db.ExecuteSql(updateQuery, [id]);
             
+            // Ver pokemons capturados
             db.ExecuteSql("SELECT * FROM Pokedex WHERE Capturado = 'true';", [], OnResult);
             
             } else {
@@ -44,9 +45,9 @@ function OnResult(result) {
     for (var i = 0; i < result.rows.length; i++) {
         var row = result.rows.item(i);
 
-            botonhtml += '<div class="boton-pokemon" pokemon-id="' + row.PokemonID + '"><p>' + row.PokemonID + '</p><img src="' + row.ImagenURL + '"><p>';
-            botonhtml += row.Nombre;
-            botonhtml += '</p></div>';
+            botonhtml += '<div class="boton-pokemon" pokemon-id="' + row.PokemonID + '"><div class="info-container"><p><img src="https://raw.githubusercontent.com/AngelAlonsoRamirez/Droidex/gh-pages/img/ball/' + row.ball + '"></p></div>';
+            botonhtml += '<p>' + row.Nombre + '</p>';
+            botonhtml += '<p class="pokemon-id">' + row.PokemonID + '</p></div>';
     }
 
     document.getElementById("pantalla").innerHTML = botonhtml;
