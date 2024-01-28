@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./estilo.css">
+  <script>var actual=""</script>
+    <script src="https://angelalonsoramirez.github.io/Droidex/version.js"></script>
+    <script src="ds:/Sys/app.js"></script>
+</head>
+
+<script>
+function cargar() {
+    var vapp = app.GetVersion();
+    document.getElementById("vapp").innerText = "Version de la app: " + vapp;
+    document.getElementById("vweb").innerText = "Version en GitHub: " + actual;
+    }
+
+function inicio() {
+    var meta = location.hash
+    filtro = meta.replace("#","");
+    
+    location.href = "index.html#" + filtro;
+    }
+
+function capturar() {
+    var meta = location.hash
+    filtro = meta.replace("#","");
+
+    location.href = "qr.html#" + filtro;
+    }
+
+function borrar() {
+    var sino = app.CreateYesNoDialog( "¿Seguro que desea borrar todo?" );
+    sino.SetButtonText( "Si","No" );
+    sino.SetOnTouch(function(result){ if(result=="Yes") {var dir = app.GetDatabaseFolder(); db = app.OpenDatabase(dir+ "/Droidex" ); db.Delete(); location.href = "index.html#";}  } );
+    sino.Show();
+    }
+
+function yesNo_OnTouch( result ) {
+    if( result=="Yes" ) app.Exit();
+    }
+
+function github() {
+    location.href = "informacion.html";
+    app.OpenUrl( "https://github.com/AngelAlonsoRamirez/");
+    }
+    
+function playstore() {
+    location.href = "informacion.html";
+    app.OpenUrl( "https://play.google.com/store/apps/dev?id=6522206684288820968");
+    }
+    
+function x() {
+    location.href = "informacion.html";
+    app.OpenUrl( "https://twitter.com/Angel_Alonso___");
+    }
+    
+function actualizar() {
+    var url = 'https://github.com/AngelAlonsoRamirez/Droidex/releases/download/v' + actual + '/Droidex_' + actual + '.apk';
+    app.OpenUrl( url );
+    }
+
+function compartir() {
+    location.href = "informacion.html";
+    var texto = "Descarga la emocionante app Droidex para atrapar Pokémon en tiempo real. ¡Vive la aventura y conviértete en un maestro Pokémon! 🚀📲\n\n\https://github.com/AngelAlonsoRamirez/Droidex"
+    app.SendText(texto);
+    }
+
+function codigo() {
+    location.href = "codigos.html";
+    }
+    
+function OnError( msg, line, file ) {
+    var text =
+    'Message: "' + msg + '"\n' +
+    'Line: ' + line;
+    app.ShowPopup( txt );
+     console.log( text, "Received error message:" );
+}
+</script>
+
+<body onload="cargar()">
+  <div class="contenedor">
+    <div class="interfaz">
+      <div class="interfaz-arriba">
+        <div class="contenedor-luz">
+          <div class="luz luz--azul"></div>
+        </div>
+        <div class="luz luz--rojo"></div>
+        <div class="luz luz--amarillo"></div>
+        <div class="luz luz--verde"></div>
+      </div>
+      <div class="interfaz-pantalla">
+        <div class="pantalla">
+          <div class="interfaz-luces"></div>
+          <div class="contenedor-pantalla">
+            <div id="pantalla"></div>
+            <img id='compartir' onclick="compartir()" src="img/compartir.png">
+
+            <h2>Información</h2>
+            <p>Esta app está desarrollada por Ángel Alonso.</p>
+            <br>
+            <p>Puedes ver mas proyectos en <a onclick="github()">GitHub</a> o en <a onclick="playstore()">PlayStore</a>.</p>
+            <br>
+            <h2>¿Problema o sugerencia?</h2>
+            <p>Puede contactar conmigo atravez de este enlace de <a onclick="github()">GitHub</a> o mediante la red social X como <a onclick="x()">@Angel_Alonso___</a></p>
+            <br>
+            <div id="vapp"></div>
+            <div id="vweb"></div>
+            <br>
+            <div class="boton">
+                <button type="button" class="btna" onclick="actualizar()">ACTUALIZAR</button>
+            </div>
+
+            <br><br>
+            <h2>Empezar de nuevo</h2>
+            <br>
+            <div class="boton">
+                <button type="button" class="btnborrar" onclick="borrar()">BORRAR TODO</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+<div class="boton">
+  <button type="button" class="btn" id="capturar" onclick="inicio()">INICIO</button>
+  <button type="button" class="btn"  onclick="capturar()">CAPTURAR</button>
+</div>
+    </div>
+  </div>
+</body>
+</html>

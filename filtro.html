@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./estilo.css">
+  <script>var actual=""</script>
+    <script src="https://angelalonsoramirez.github.io/Droidex/version.js"></script>
+    <script src="ds:/Sys/app.js"></script>
+
+    <script>
+// Volver a la pantalla principal
+function volver() {
+    var meta = location.hash
+    filtro = meta.replace("#","");
+    
+    location.href = "index.html#" + filtro;
+}
+
+function informacion() {
+    var meta = location.hash
+    filtro = meta.replace("#","");
+
+    location.href = "informacion.html#" + filtro;
+    }
+	</script>
+
+</head>
+<body>
+  <div class="contenedor">
+    <div class="interfaz">
+      <div class="interfaz-arriba">
+        <div class="contenedor-luz">
+          <div class="luz luz--azul"></div>
+        </div>
+        <div class="luz luz--rojo"></div>
+        <div class="luz luz--amarillo"></div>
+        <div class="luz luz--verde"></div>
+      </div>
+      <div class="interfaz-pantalla">
+        <div class="pantalla">
+          <div class="interfaz-luces"></div>
+          <div class="contenedor-pantalla">
+            <div id="pantalla"></div>
+            <h2 id="filtro-gen">Filtrar por regiónes</h2>
+            <h3 id="generacion" onclick="location.href = 'index.html#1'">Kanto</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#2'">Johto</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#3'">Hoenn</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#4'">Sinnoh</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#5'">Teselia</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#6'">Kalos</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#7'">Alola</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#8'">Galar</h3>
+            <h3 id="generacion" onclick="location.href = 'index.html#'">Todos</h3>
+          </div>
+        </div>
+      </div>
+<div class="boton">
+  <button type="button" class="btn" id="capturar" onclick="volver()">INICIO</button>
+  <button type="button" class="btn"  onclick="informacion()">INFODEX</button>
+</div>
+    </div>
+  </div>
+</body>
+
+</html>
