@@ -231,7 +231,7 @@ table {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px; /* Ajusta el relleno según tus preferencias */
+  padding: 10px;
 }
 
 .info-container {
@@ -244,10 +244,8 @@ table {
 }
 
 .pokemon-id {
-  margin-left: auto; /* Coloca pokemon-id a la derecha */
+  margin-left: auto;
 }
-
-
 
 .boton {
   display: flex;
@@ -256,6 +254,17 @@ table {
 }
   
 .btn {
+  background-color: red;
+  font-size: 18px;
+  color: white;
+  width: 40%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnborrar {
   background-color: red;
   font-size: 18px;
   color: white;
@@ -408,3 +417,34 @@ input:checked + .switch-cambio:before {
   font-size: 30px;
   border-radius: 10px;
 }
+
+#info {
+    width: 30px;
+    height: auto;
+    }
+    
+#tabla-filtro {
+    padding: 5px;
+    float: left;
+    display: inline-block;
+    width: 30px;
+    height: auto;
+    }
+    
+#filtro {
+    padding-top: 20px;
+    float: left;
+    display: inline-block;
+    width: 30px;
+    height: auto;
+    }
+
+#totalCapturados{
+    padding-top: 20px;
+    float: left;
+    display: inline-block;
+    }
+
+#generacion {
+    padding-top: 18px;
+    }

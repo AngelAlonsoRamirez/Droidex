@@ -12,12 +12,6 @@
 var meta = location.hash
 id = meta.replace("#","");
 
-
-// Sentencia SQL de actualización
-var updateQuery = "UPDATE Pokedex SET Capturado = 'true' WHERE PokemonID = ?";
-
-db.ExecuteSql(updateQuery, [id]);
-
 db.ExecuteSql("SELECT * FROM Pokedex WHERE PokemonID = ?;", [id], OnResult);
 
 function OnResult(result) {
@@ -27,29 +21,66 @@ function OnResult(result) {
         var row = result.rows.item(i);
         
         document.getElementById("imagen").innerHTML = '<img src="' + row.ImagenURL + '">';
-
     }
 
-    if (row.Tipo2==="NULL") {var tipo = ""} else {var tipo = '<img src="https://raw.githubusercontent.com/AngelAlonsoRamirez/Droidex/gh-pages/img/tipo/' + row.Tipo2 + '.png" width="40px" />'}
+    if (row.Tipo2==="NULL") {var tipo = ""} else {var tipo = '<img src="img/tipo/' + row.Tipo2 + '.png" width="40px" />'}
 
 
-    document.getElementById("Id").innerHTML = row.PokemonID;
-    document.getElementById("Nombre").innerHTML = row.Nombre;
-    document.getElementById("Tipo1").innerHTML = '<img src="https://raw.githubusercontent.com/AngelAlonsoRamirez/Droidex/gh-pages/img/tipo/' + row.Tipo1 + '.png" width="40px" />';
-    document.getElementById("Tipo2").innerHTML = tipo;
-    document.getElementById("Altura").innerHTML = row.Altura + " M";
-    document.getElementById("Peso").innerHTML = row.Peso + " K";
-    document.getElementById("Descripcion").innerHTML = row.Descripcion;
-    document.getElementById("imagen").innerHTML = '<img id="imagen" src="' + row.ImagenURL + '">';
-    document.getElementById("Capturado").innerHTML = '<img src="https://raw.githubusercontent.com/AngelAlonsoRamirez/Droidex/gh-pages/img/ball/' + row.ball + '">';
+    if (row.Capturado==='true') {
+        document.getElementById("Id").innerHTML = row.PokemonID;
+        document.getElementById("Nombre").innerHTML = row.Nombre;
+        document.getElementById("Tipo1").innerHTML = '<img src="img/tipo/' + row.Tipo1 + '.png" width="40px" />';
+        document.getElementById("Tipo2").innerHTML = tipo;
+        document.getElementById("Altura").innerHTML = row.Altura + " M";
+        document.getElementById("Peso").innerHTML = row.Peso + " K";
+        document.getElementById("Descripcion").innerHTML = row.Descripcion;
+        document.getElementById("imagen").innerHTML = '<img id="imagen" src="img/pk/' + row.PokemonID + '.png">';
+        document.getElementById("Capturado").innerHTML = '<img src="img/ball/' + row.ball + '">';
+        } else {
+            document.getElementById("Id").innerHTML = row.PokemonID;
+            document.getElementById("Nombre").innerHTML = "????";
+            document.getElementById("Tipo1").innerHTML = '';
+            document.getElementById("Tipo2").innerHTML = '';
+            document.getElementById("Altura").innerHTML = "?? M";
+            document.getElementById("Peso").innerHTML = "?? K";
+            document.getElementById("Descripcion").innerHTML = '???? ???? ????';
+            document.getElementById("imagen").innerHTML = '<img id="imagen" src="img/pk/0.png">';
+            document.getElementById("Capturado").innerHTML = '<img src="img/ball/false.png">';            
+            }
 }
 
-function volver() {
-    location.href = "index.html";
+function inicio() {
+    location.href = "index.html#";
+}
+
+function informacion() {
+    var meta = location.hash
+    filtro = meta.replace("#","");
+
+    location.href = "informacion.html#" + filtro;
     }
+
+function hablar() {
+    var nombre = document.getElementById("Nombre").innerHTML;
+    var descripcion = document.getElementById("Descripcion").innerHTML;
+    
+    if (nombre==="????") {} else {
+    var velocidad = 0.8, speed = 0.9;
+    app.TextToSpeech( nombre + ". " + descripcion, velocidad, speed, "", "music", 'es_ES',"com.google.android.tts" );
+    }
+}
+
+function OnError( msg, line, file ) {
+    var text =
+    'Message: "' + msg + '"\n' +
+    'Line: ' + line;
+    console.log( "######################" );
+    console.log( text );
+    console.log( "######################" );
+    console.log( text, "Received error message:" );
+}
     </script>
 </head>
-	
 
 <body>
   <div class="contenedor">
@@ -83,14 +114,17 @@ function volver() {
   <tr><td><div id="Peso"></div></td></tr>
 </table>
 
-<div id="imagen"></div>    
+<div id="imagen"></div>
+
+<img id="info" onclick="hablar()" src="img/altavoz.png">
+
 <div id="Descripcion"></div>
 
 </div>
         </div>
       </div>
 <div class="boton">
-  <button type="button" class="btn" onclick="volver();">VOLVER</button>
+  <button type="button" class="btn" id="capturar" onclick="inicio()">ATRAS</button>
 </div>
     </div>
   </div>

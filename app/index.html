@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./estilo.css">
   <script>var actual=""</script>
-    <script src="https://angelalonsoramirez.github.io/Droidex/version.js"></script>
-    <script src="ds:/Sys/app.js"></script>
+  <script src="https://angelalonsoramirez.github.io/Droidex/version.js"></script>
+  <script src="ds:/Sys/app.js"></script>
 
-    <script>
+  <script>
     function Start() {
         var vapp = app.GetVersion();
         if (vapp<actual) {
             app.ShowPopup( "¡Hay una versión nueva!" );
-            }
+        }
 
-        var dir = app.GetDatabaseFolder(); // /data/user/0/com.smartphoneremote.androidscriptfree/databases
+        var dir = app.GetDatabaseFolder();
         var nombreDB = "Droidex";
         var rutaDB = dir + "/" + nombreDB;
         var existe = app.FileExists(rutaDB);
@@ -29,54 +29,84 @@
             var id = '25';
             db.ExecuteSql(updateQuery, [id]);
             
-            // Ver pokemons capturados
-            db.ExecuteSql("SELECT * FROM Pokedex WHERE Capturado = 'true';", [], OnResult);
-            
-            } else {
-                // El archivo de la base de datos no existe
-                location.href = "zbienvenida.html";
+            // Comprobar filtro
+            var meta = location.hash
+            filtro = meta.replace("#","");
 
-                }
+            if (filtro === "") {
+                // Ver todos
+                db.ExecuteSql("SELECT * FROM Pokedex;", [], OnResult);
+            } else {
+                // Filtro por generacion
+                db.ExecuteSql("SELECT * FROM Pokedex WHERE Region = '" + filtro + "';", [], OnResult);
+            }
+        } else {
+            // El archivo de la base de datos no existe
+            location.href = "zbienvenida.html";
+        }
+    }
+
+    function OnResult(result) {
+        var botonhtml = "";
+
+        var totalCapturados = 0; // Variable para contar el total de Pokémon capturados
+
+        for (var i = 0; i < result.rows.length; i++) {
+            var row = result.rows.item(i);
+            
+            if (row.Capturado === "true") {
+                totalCapturados++; // Incrementa el contador de Pokémon capturados
+                botonhtml += '<div class="boton-pokemon" pokemon-id="' + row.PokemonID + '"><div class="info-container"><p><img src="img/ball/' + row.ball + '"></p></div>';
+                botonhtml += '<p>' + row.Nombre + '</p>';
+                botonhtml += '<p class="pokemon-id">' + row.PokemonID + '</p></div>';
+            } else {
+                botonhtml += '<div class="boton-pokemon" pokemon-id="' + row.PokemonID + '"><div class="info-container"><p><img src="img/ball/false.png"></p></div>';
+                botonhtml += '<p>????</p>';
+                botonhtml += '<p class="pokemon-id">' + row.PokemonID + '</p></div>';
+            }
         }
 
-function OnResult(result) {
-    var botonhtml = "";
+        document.getElementById("pantalla").innerHTML = botonhtml;
 
-    for (var i = 0; i < result.rows.length; i++) {
-        var row = result.rows.item(i);
+        // Mostrar el total de Pokémon capturados debajo de la lista
+        document.getElementById("totalCapturados").innerText = "Capturados " + totalCapturados;
 
-            botonhtml += '<div class="boton-pokemon" pokemon-id="' + row.PokemonID + '"><div class="info-container"><p><img src="https://raw.githubusercontent.com/AngelAlonsoRamirez/Droidex/gh-pages/img/ball/' + row.ball + '"></p></div>';
-            botonhtml += '<p>' + row.Nombre + '</p>';
-            botonhtml += '<p class="pokemon-id">' + row.PokemonID + '</p></div>';
+        // Agregar listener de eventos a cada botón de Pokémon
+        var buttons = document.getElementsByClassName("boton-pokemon");
+        for (var j = 0; j < buttons.length; j++) {
+            buttons[j].addEventListener("click", function () {
+                var pokemonID = this.getAttribute("pokemon-id");
+                mostrarID(pokemonID);
+            });
+        }
+        
+        if (totalCapturados==='898') {}
     }
 
-    document.getElementById("pantalla").innerHTML = botonhtml;
-
-    var buttons = document.getElementsByClassName("boton-pokemon");
-
-    for (var j = 0; j < buttons.length; j++) {
-        buttons[j].addEventListener("click", function () {
-            var pokemonID = this.getAttribute("pokemon-id");
-            verid(pokemonID);
-        });
-    }
-
-    function verid(pokemonID) {
+    function mostrarID(pokemonID) {
         location.href = "ver.html#" + pokemonID;
     }
-}
 
-function capturar() {
-    location.href = "qr.html";
-    }        
-        
- 
-function OnError( msg ) {
-    console.log( "Error: " + msg );
+    function OnError( msg ) {
+        console.log( "Error: " + msg );
     }
 
-function informacion() {
-    location.href = "informacion.html";
+    function capturar() {
+        var meta = location.hash
+        filtro = meta.replace("#","");
+        location.href = "qr.html#" + filtro;
+    }
+
+    function informacion() {
+        var meta = location.hash
+        filtro = meta.replace("#","");
+        location.href = "informacion.html#" + filtro;
+    }
+
+    function filtrar() {
+        var meta = location.hash
+        filtro = meta.replace("#","");
+        location.href = "filtro.html#" + filtro;
     }
 	</script>
 
@@ -98,15 +128,19 @@ function informacion() {
           <div class="contenedor-pantalla">
             <div id="pantalla"></div>
           </div>
-<img id='informacion' onclick="informacion()" src="img/informacion.png">
-
+          
+          <table id="tabla-filtro">
+          <td><img id="filtro" onclick="filtrar()" src="img/filtro.png"></td>
+          <td><div id="totalCapturados"></div></td>
+          </table>
+          
         </div>
       </div>
-<div class="boton">
-  <button type="button" class="btn" id="capturar" onclick="capturar()">CAPTURAR</button>
-</div>
+      <div class="boton">
+        <button type="button" class="btn" id="capturar" onclick="capturar()">CAPTURAR</button>
+        <button type="button" class="btn"  onclick="informacion()">INFODEX</button>
+      </div>
     </div>
   </div>
 </body>
-
 </html>

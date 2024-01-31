@@ -1,5 +1,5 @@
 app.SetOnError(OnError); // Pones los posibles errores en OnError
-var url="zindex.html"
+var url="zindex.html#"
 
 // Cargar tema de la app
     theme = app.CreateTheme( "Light" );
@@ -32,7 +32,7 @@ function OnStart() {
     // Poner en modo vertical la app y evitar el modo horizontal
     app.SetOrientation("Portrait");  
     
-    app.PreventScreenLock(true); // Bloquear el apagad ode pantalla automatico
+    app.PreventScreenLock(true); // Bloquear el apagado de pantalla automatico
     app.EnableBackKey( false ); // Desabilitarl el boton de artas
     
     // Mosrtar en pantalla ventana de carga de html en pantalla completa
@@ -43,6 +43,19 @@ function OnStart() {
 	lay.AddChild( web );
 	
 	app.AddLayout( lay );
+	
+	// Datos de Google Analytics
+	var ver = app.GetVersion()
+	app.GA( "create", "G-KR9MW5LRB8" )
+	app.GA( "send", "screenview", 
+	    {"appName":"droidex","appVersion":ver,"screenName":"main"})
+
+	/*
+	var ver = app.GetVersion()
+	app.GA( "create", "G-XXXXXXXXXX" )
+	app.GA( "send", "screenview", 
+	    {"appName":"droidex","appVersion":ver,"screenName":"main"})
+	*/
 }
 
 function OnError( msg, line, file ) {
@@ -70,8 +83,3 @@ function OnBack() {
             function yesNo_OnTouch( result ) {
                 if( result=="Yes" ) app.Exit();
                 }
-
-// Borra la base de datos (No se usa en la app)
-function del() { 
-   db.Delete()
-}

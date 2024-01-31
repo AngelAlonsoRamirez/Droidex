@@ -16,13 +16,23 @@ function cargar() {
     }
 
 function inicio() {
-    location.href = "index.html";
+    var meta = location.hash
+    filtro = meta.replace("#","");
+    
+    location.href = "index.html#" + filtro;
+    }
+
+function capturar() {
+    var meta = location.hash
+    filtro = meta.replace("#","");
+
+    location.href = "qr.html#" + filtro;
     }
 
 function borrar() {
     var sino = app.CreateYesNoDialog( "¿Seguro que desea borrar todo?" );
     sino.SetButtonText( "Si","No" );
-    sino.SetOnTouch(function(result){ if(result=="Yes") {var dir = app.GetDatabaseFolder(); db = app.OpenDatabase(dir+ "/Droidex" ); db.Delete(); location.href = "index.html";}  } );
+    sino.SetOnTouch(function(result){ if(result=="Yes") {var dir = app.GetDatabaseFolder(); db = app.OpenDatabase(dir+ "/Droidex" ); db.Delete(); location.href = "index.html#";}  } );
     sino.Show();
     }
 
@@ -59,6 +69,14 @@ function compartir() {
 function codigo() {
     location.href = "codigos.html";
     }
+    
+function OnError( msg, line, file ) {
+    var text =
+    'Message: "' + msg + '"\n' +
+    'Line: ' + line;
+    app.ShowPopup( txt );
+     console.log( text, "Received error message:" );
+}
 </script>
 
 <body onload="cargar()">
@@ -95,15 +113,10 @@ function codigo() {
             </div>
 
             <br><br>
-            <div class="boton">
-                <button type="button" class="btnv" onclick="codigo()">CODIGOS</button>
-            </div>
-
-            <br><br>
             <h2>Empezar de nuevo</h2>
             <br>
             <div class="boton">
-                <button type="button" class="btn" onclick="borrar()">BORRAR TODO</button>
+                <button type="button" class="btnborrar" onclick="borrar()">BORRAR TODO</button>
             </div>
 
           </div>
@@ -111,6 +124,7 @@ function codigo() {
       </div>
 <div class="boton">
   <button type="button" class="btn" id="capturar" onclick="inicio()">INICIO</button>
+  <button type="button" class="btn"  onclick="capturar()">CAPTURAR</button>
 </div>
     </div>
   </div>

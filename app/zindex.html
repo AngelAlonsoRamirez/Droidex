@@ -12,7 +12,9 @@ function iniciar() {
     }
 
 function inicio() {
-    location.href = "index.html";
+    var meta = location.hash
+    filtro = meta.replace("#","");
+    location.href = "index.html#" + filtro;
     }
 </script>
 
@@ -33,12 +35,17 @@ function inicio() {
           <div class="contenedor-pantalla">
             <div id="pantalla"></div>
           </div>
+          
+<img id="filtro" onclick="filtrar()" src="img/filtro.png">
+
         </div>
       </div>
 <div class="boton">
   <button type="button" class="btn" id="capturar" onclick="capturar()">CAPTURAR</button>
+  <button type="button" class="btn"  onclick="informacion()">INFODEX</button>
 </div>
     </div>
   </div>
 </body>
+
 </html>
