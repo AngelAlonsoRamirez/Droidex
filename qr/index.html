@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://angelalonsoramirez.github.io/Droidex/version.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KR9MW5LRB8"></script>
+    <link rel="stylesheet" href="./estilo.css">
+    <title>Droidex Qr</title>
+</head>
+<body>
+<!-- Google tag (gtag.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KR9MW5LRB8');
+</script>
+
+<style>
+#caja {
+    border-radius: 7px;
+    background-color: rgb(53, 53, 53);
+    color: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 2px;
+    padding-right: 20px;
+    height: 40%;
+    width: 98%;
+    overflow-y: auto;
+    font-size: larger;
+    font-weight: 700;
+}
+
+.contenedor-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+}
+
+.profesor {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+</style>
+
+
+<body onload="crear()">
+  <div class="contenedor">
+    <div class="interfaz">
+      <div class="interfaz-arriba">
+        <div class="contenedor-luz">
+          <div class="luz luz--azul"></div>
+        </div>
+        <div class="luz luz--rojo"></div>
+        <div class="luz luz--amarillo"></div>
+        <div class="luz luz--verde"></div>
+      </div>
+      <div class="interfaz-pantalla">
+        <div class="pantalla">
+          <div class="interfaz-luces"></div>
+          <div class="contenedor-pantalla">
+
+<div class="contenedor-imagen">
+    <img class="profesor" src="img/profesor.png">
+</div>
+
+<div id="caja">
+    <div id=dialogo></div>
+</div>
+
+            </div>
+        </div>
+      </div>
+<div class="boton">
+  <button type="button" class="btn" onclick="mostrardialogo();">CONTINUAR</button>
+</div>
+    </div>
+  </div>
+  
+<script>
+var mensajes = [
+  "¡Saludos, joven Entrenador! Soy el Profesor Alons.",
+  "En este vasto mundo de los Pokémon, me encuentro desarrollando la Droidex, una innovadora Pokédex de última generación.",
+  "Necesito tu colaboración para completarla con información vital sobre los Pokémon que encuentres en tu viaje.",
+  "La Droidex aprovecha la avanzada tecnología de los smartphones con Android para enriquecer tu experiencia como Entrenador.",
+  "Agregar nuevos Pokémon es sencillo: basta con escanear los códigos QR o de barras que te encuentres en tu camino.",
+  "Estos códigos están dispersos por doquier, así que mantén tus sentidos alerta.",
+  "¡Anímate, Entrenador! Completar la Droidex te aguarda con emocionantes descubrimientos.",
+  "¡Gracias por ser parte de esta fascinante investigación Pokémon!",
+  "Ah, sí, se me olvidaba, ten tu Droidex.",
+  ""
+];
+
+
+var indice = 0;
+var mensajeActual = '';
+var letraActual = 0;
+var velocidadEscritura = 50; // Velocidad de escritura en milisegundos
+
+function mostrardialogo() {
+  var mensaje = mensajes[indice];
+  
+  if (letraActual < mensaje.length) {
+    mensajeActual += mensaje.charAt(letraActual);
+    document.getElementById("dialogo").innerText = mensajeActual;
+    letraActual++;
+    setTimeout(mostrardialogo, velocidadEscritura);
+  } else {
+    // Reiniciar para el próximo mensaje
+    mensajeActual = '';
+    letraActual = 0;
+    // añade +1 al próximo clic
+    indice = (indice + 1) % mensajes.length;
+
+    // Verificamos si hemos mostrado todos los mensajes
+    if (indice === 0) {
+      // Salimos al terminar
+      alert("¡Felicidades, entrenador! Has completado la tarea del Profesor Álons y ahora tienes una Droidex. ¡Buena suerte en tu viaje!");
+      
+      var url = 'https://github.com/AngelAlonsoRamirez/Droidex/releases/download/v' + actual + '/Droidex_' + actual + '.apk';
+
+      location.href = url;
+    }
+  }
+}
+</script>
+</body>
+</html>
